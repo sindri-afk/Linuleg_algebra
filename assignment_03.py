@@ -1,7 +1,6 @@
 from vec import Vec
-from GF2 import one
 
-## 1: (Problem 3.8.1) Vector Comprehension and Sum
+
 def vec_select(veclist, k):
     """
     Returns a list of vectors from veclist where the value of entry k is 0.
@@ -13,7 +12,11 @@ def vec_select(veclist, k):
     Returns:
     - A list of Vec objects from veclist where the value of entry k is 0
     """
-    return [vec for vec in veclist if vec[k] == 0]
+    result = []
+    for vec in veclist:
+        if k not in vec.f or vec[k] == 0:
+            result.append(vec)
+    return result
 
 def vec_sum(veclist, D):
     """
@@ -26,10 +29,14 @@ def vec_sum(veclist, D):
     Returns:
     - A Vec object representing the sum of all vectors in veclist
     """
-    result = Vec(D, {})  # Nýr tómur vigur til að halda utan um summu vigranna
-    for vec in veclist:
-        result += vec  # Bætum við hvern vigur í veclist við niðurstöðuvigurinn
-    return result
+    result_dict = {}
+    for vecs in veclist:
+        for key in vecs.f:
+            if key in result_dict:
+                result_dict[key] += vecs.f[key]
+            else:
+                result_dict[key] = vecs.f[key]
+    return Vec(D, result_dict)
 
 def vec_select_sum(veclist, k, D):
     """
@@ -43,30 +50,27 @@ def vec_select_sum(veclist, k, D):
     Returns:
     - A Vec object representing the sum of all vectors in veclist where the value of entry k is 0
     """
-    selected_vectors = vec_select(veclist, k)  # Veljum vigrana sem uppfylla skilyrðið
-    return vec_sum(selected_vectors, D)  # Skilum summu þeirra
+    return vec_sum(vec_select(veclist, k), D)
 
-
-## 2: (Problem 3.8.2) Vector Dictionary
 def scale_vecs(vecdict):
     """
-    Returns a dictionary with scaled versions of the vectors in vecdict.
+    Returns a list of scaled versions of the vectors in vecdict.
 
     Args:
     - vecdict: A dictionary mapping scalar values to Vec objects
 
     Returns:
-    - A dictionary with scaled versions of the vectors in vecdict
+    - A list of scaled versions of the vectors in vecdict
     """
-    result = {}  # Nýr tómur orðabók til að halda utan um sköluðu vigrana
-    for scalar, vec in vecdict.items():
-        scaled_vec = Vec(vec.D, {key: val / scalar for key, val in vec.f.items()})  # Skulum niður vigtina með skalarinum
-        result[scalar] = scaled_vec  # Bætum við sköludu vigtinni í niðurstöðuorðabókina
+    result = []
+    for key in vecdict:
+        result.append((1/key) * vecdict[key])
     return result
 
 
 ## 3: (Problem 3.8.3) Constructing a Span over GF(2)
-def GF2_span(D, L):
+
+# def GF2_span(D, L):
     """
     Returns the span of the vectors in L over the field GF(2).
 
@@ -77,6 +81,7 @@ def GF2_span(D, L):
     Returns:
     - A list of Vec objects representing the span of the vectors in L over GF(2)
     """
+    from itertools import product  # Import the product function from itertools
     from GF2 import one  # Import the one value from GF2 module
 
     # Helper function to compute linear combination of vectors
@@ -87,8 +92,7 @@ def GF2_span(D, L):
     result = []
 
     # Loop over all possible combinations of coefficients
-    for i in range(2 ** len(L)):
-        coefficients = [(i >> j) & 1 for j in range(len(L))]
-        result.append(linear_combination(L, coefficients))
+    for coeffs in product([0, 1], repeat=len(L)):
+        result.append(linear_combination(L, coeffs))
 
     return result

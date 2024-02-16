@@ -22,7 +22,10 @@ def lin_comb_mat_vec_mult(M, v):
     >>> lin_comb_mat_vec_mult(M1,v1) == Vec({'a', 'b'},{'a': 38, 'b': -5})
     True
     '''
-    assert(M.D[1] == v.D)
+    # assert(M.D[1] == v.D)
+    # result = Vec(M.D[])
+    # for i in range(len(M.D)):
+        # M.D[i] * v.D[i]
     pass
 
 

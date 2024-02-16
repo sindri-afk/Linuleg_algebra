@@ -13,7 +13,10 @@ def getitem(M, k):
     0
     """
     assert k[0] in M.D[0] and k[1] in M.D[1]
-    pass
+    if k in M.s:  # s, stendur fyrir storage. 
+        return M.s[k]
+    else: 
+        return 0
 
 def equal(A, B):
     """
@@ -39,7 +42,12 @@ def equal(A, B):
     True
     """
     assert A.D == B.D
-    pass
+
+    if A.D != B.D:
+        return False
+    for i in A.s:
+        if A[i] != B[i]:
+            return False
 
 def setitem(M, k, val):
     """
@@ -59,7 +67,7 @@ def setitem(M, k, val):
     True
     """
     assert k[0] in M.D[0] and k[1] in M.D[1]
-    pass
+    M.s[k] = val
 
 def add(A, B):
     """
@@ -86,8 +94,13 @@ def add(A, B):
     >>> C1 + C2 == D
     True
     """
+    # .union == |
+    # 
     assert A.D == B.D
-    pass
+    result = Vec(A.D | B.D, {})
+    for key in A.s.keys() | B.s.keys():
+        result[key] = A[key] + B[key]
+    return result
 
 def scalar_mul(M, x):
     """
@@ -101,7 +114,13 @@ def scalar_mul(M, x):
     >>> 0.25*M == Mat(({1,3,5}, {2,4}), {(1,2):1.0, (5,4):0.5, (3,4):0.75})
     True
     """
-    pass
+    result = {}  # Búum til tóman dictionary til að geyma niðurstöðu
+
+    for key in M.D:  # Fara í gegnum alla lykla í domain v
+        result[key] = M[key] * x  # Margfalda hvert stak í v með alpha og setja niðurstöðuna í nýja dictionary
+
+    return Vec(M.D, result)
+
 
 def transpose(M):
     """

@@ -97,8 +97,8 @@ def add(A, B):
     # .union == |
     # 
     assert A.D == B.D
-    result = Vec(A.D | B.D, {})
-    for key in A.s.keys() | B.s.keys():
+    result = Vec(set(A.D[0]) | set(B.D[0]), set(A.D[1]) | set(B.D[1]))
+    for key in A.f.keys() | B.f.keys():
         result[key] = A[key] + B[key]
     return result
 
@@ -162,14 +162,10 @@ def vector_matrix_mul(v, M):
     True
     """
     assert M.D[0] == v.D
-    result = {} 
-    for column in M.D[1]:
-        dot = 0 
-        for row in M.D[0]:
-            if (row, column) in M.f:
-                dot +=  v[row] * M[row, column]
-        result[column] = dot
-    return Vec(M.D[1], result)
+    result = Vec(M.D[1], {})
+    for i in M.D[1]:
+        result[i] = sum(M[i, c] * v[c] for c in M.D[0])
+    return result
 def matrix_vector_mul(M, v):
     """
     Returns the product of matrix M and vector v.

@@ -134,7 +134,8 @@ def transpose(M):
     >>> M.transpose() == Mt
     True
     """
-    pass
+    transposed = list(zip(*M))
+    return transposed
 
 def vector_matrix_mul(v, M):
     """
@@ -161,8 +162,14 @@ def vector_matrix_mul(v, M):
     True
     """
     assert M.D[0] == v.D
-    pass
-
+    result = {} 
+    for column in M.D[1]:
+        dot = 0 
+        for row in M.D[0]:
+            if (row, column) in M.f:
+                dot +=  v[row] * M[row, column]
+        result[column] = dot
+    return Vec(M.D[1], result)
 def matrix_vector_mul(M, v):
     """
     Returns the product of matrix M and vector v.
@@ -188,7 +195,14 @@ def matrix_vector_mul(M, v):
     True
     """
     assert M.D[1] == v.D
-    pass
+    result = {}
+    for row in M.D[0]:
+        dot = 0 
+        for column in M.D[1]:
+            if (row, column) in M.f:
+                dot += M[row,column] * v[column]
+        result[row] = dot
+    return Vec(M.D[0], result)
 
 def matrix_matrix_mul(A, B):
     """

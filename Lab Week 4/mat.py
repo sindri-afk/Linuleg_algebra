@@ -232,7 +232,15 @@ def matrix_matrix_mul(A, B):
     """
     # You can leave this unimplemented for week 4
     assert A.D[1] == B.D[0]
-    pass
+    result = {}
+
+    for i in A.D[0]:
+        for j in B.D[1]:
+            dot_product = sum(A[i, k] * B[k, j] for k in A.D[1])
+            if dot_product != 0:
+                result[i, j] = dot_product
+
+    return Mat((A.D[0], B.D[1]), result)
 
 ################################################################################
 

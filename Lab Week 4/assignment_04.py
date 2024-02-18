@@ -22,11 +22,18 @@ def lin_comb_mat_vec_mult(M, v):
     >>> lin_comb_mat_vec_mult(M1,v1) == Vec({'a', 'b'},{'a': 38, 'b': -5})
     True
     '''
+    result = {}  
+
+    for i in M.D[0]:
+        dot_product = sum(M[i, j] * v[j] for j in M.D[1])
+        result[i] = dot_product
+
+    return Vec(M.D[0], result)
     # assert(M.D[1] == v.D)
     # result = Vec(M.D[])
     # for i in range(len(M.D)):
         # M.D[i] * v.D[i]
-    pass
+    
 
 
 
@@ -51,7 +58,13 @@ def lin_comb_vec_mat_mult(v, M):
       True
     '''
     assert(v.D == M.D[0])
-    pass
+    result = {}
+
+    for j in M.D[1]:
+        dot_product = sum(v[i] * M[i, j] for i in M.D[0])  
+        result[j] = dot_product  
+
+    return Vec(M.D[1], result)
 
 
 
@@ -74,7 +87,13 @@ def dot_product_mat_vec_mult(M, v):
     True
     '''
     assert(M.D[1] == v.D)
-    pass
+    result = {}  
+
+    for i in M.D[0]: 
+        dot_product = sum(M[i, j] * v[j] for j in M.D[1]) 
+        result[i] = dot_product
+
+    return Vec(M.D[0], result)
 
 
 
@@ -96,7 +115,12 @@ def dot_product_vec_mat_mult(v, M):
       True
       '''
     assert(v.D == M.D[0])
-    pass
+    result = {} 
+
+    for j in M.D[1]:
+        dot_product = sum(v[i] * M[i, j] for i in M.D[0])
+        result[j] = dot_product
+    return Vec(M.D[1], result)
 
 
 if __name__ == "__main__":

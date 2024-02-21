@@ -14,30 +14,63 @@ the procedure listlist2mat in the matutil module (be sure to import first).
 Since we are working over GF (2), you should use the value one from the
 GF2 module to represent 1"""
 g = [
-    [1, 0, 1, 1],
-    [1, 1, 0, 1],
-    [0, 0, 0, 1],
-    [1, 1, 1, 0],
-    [0, 0, 1, 0],
-    [0, 1, 0, 0],
-    [1, 0, 0, 0],
-
+    [one, 0, one, one], 
+    [one, one, 0, one], ## [1, 0, 0, 1]
+    [0, 0, 0, one],
+    [one, one, one, 0],
+    [0, 0, one, 0],
+    [0, one, 0, 0],
+    [one, 0, 0, 0]
 ]
 
-A = listlist2mat()
+A = listlist2mat(g)
 G = A
 
 ## Task 2
 # Please write your answer as a Vec. Use one from GF2 and 0 as the elements.
+
+## [1, 0, 0, 1]
+[0, 0, one, one, 0, 0, one]
+v = Vec({0, 1, 2, 3, 4, 5, 6}, {2: one, 3:one, 6: one })
+
+# print(v)
+
 encoding_1001 = None
+# einfeldið. þetta er yfir GF(2)
 
 
 ## Task 3
 # Express your answer as an instance of the Mat class.
-R = None
+## Finna R fylkið þannig að R * G gefur okkur Hlutlaust-Fylki/Eininga-Fylki
+## R er 4*7, og G er 7*4.
+# í Raun erum við að finna R ° G, sem gefur okkur hlutlausa fylkið.
+
+r = [
+    [0, 0, 0, 0, 0, 0, one],
+    [0, 0, 0, 0, 0, one, 0],
+    [0, 0, 0, 0, one, 0, 0],
+    [0, 0, 0, one, 0 ,0, 0],
+]
+r_mat = listlist2mat(r)
+R = r_mat
 
 ## Task 4
 # Create an instance of Mat representing the check matrix H.
+"""In such a code, there is a matrix H, called the check matrix, such that C is the null space of H. When the Receiver receives the vector c ̃, she can check whether the received vector is a codeword by multiplying it by H and checking whether the resulting vector (called the error syndrome) is the zero vector."""
+h = [
+    [0, 0, 0, one, one, one, one],
+    [0, one, one, 0, 0, one, one],
+    [one, 0, one, 0, one, 0, one]]
+g = [
+    [one, 0, 0],
+    [0, one, 0],
+    [0, 0, one],
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+]
+#hg = 0
 H = None
 
 ## Task 5

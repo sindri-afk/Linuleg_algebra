@@ -25,6 +25,8 @@ g = [
 
 A = listlist2mat(g)
 G = A
+# >>> Comlete
+
 
 ## Task 2
 # Please write your answer as a Vec. Use one from GF2 and 0 as the elements.
@@ -38,6 +40,8 @@ v = Vec({0, 1, 2, 3, 4, 5, 6}, {2: one, 3:one, 6: one })
 encoding_1001 = None
 # einfeldið. þetta er yfir GF(2)
 
+
+# >>> Comlete
 
 ## Task 3
 # Express your answer as an instance of the Mat class.
@@ -53,6 +57,8 @@ r = [
 ]
 r_mat = listlist2mat(r)
 R = r_mat
+# >>> Comlete
+
 
 ## Task 4
 # Create an instance of Mat representing the check matrix H.
@@ -70,8 +76,10 @@ g = [
     [0, 0, 0],
     [0, 0, 0],
 ]
+hg = listlist2mat(h, g)
 #hg = 0
-H = None
+H = hg
+# >>> Comlete
 
 ## Task 5
 def find_error(syndrome):
@@ -88,7 +96,12 @@ def find_error(syndrome):
         >>> find_error(Vec({0,1,2}, {})) == Vec({0,1,2,3,4,5,6}, {})
         True
     """
-    pass
+    error_vector = Vec(syndrome.D, {})
+    for i in syndrome.D:
+        if syndrome[i] == 1:
+            error_vector[i] = 1
+    return error_vector
+# >>> Complete
 
 ## Task 6
 # Use the Vec class for your answers.

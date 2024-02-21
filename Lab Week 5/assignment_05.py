@@ -5,14 +5,27 @@ from vec import Vec
 from mat import Mat
 from bitutil import bits2mat, str2bits, noise
 from GF2 import one
+from matutil import listlist2mat 
+
 
 ## Task 1
 """ Create an instance of Mat representing the generator matrix G. You can use
 the procedure listlist2mat in the matutil module (be sure to import first).
 Since we are working over GF (2), you should use the value one from the
 GF2 module to represent 1"""
+g = [
+    [1, 0, 1, 1],
+    [1, 1, 0, 1],
+    [0, 0, 0, 1],
+    [1, 1, 1, 0],
+    [0, 0, 1, 0],
+    [0, 1, 0, 0],
+    [1, 0, 0, 0],
 
-G = ...
+]
+
+A = listlist2mat()
+G = A
 
 ## Task 2
 # Please write your answer as a Vec. Use one from GF2 and 0 as the elements.

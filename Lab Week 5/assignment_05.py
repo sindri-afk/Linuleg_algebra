@@ -59,31 +59,28 @@ r_mat = listlist2mat(r)
 R = r_mat
 # >>> Comlete
 
-
+"""In such a code, there is a matrix H, called the check matrix, such that C is the null space of H. When the Receiver receives the vector c ̃, she can check whether the received vector is a codeword by multiplying it by H and checking whether the resulting vector (called the error syndrome) is the zero vector."""
 ## Task 4
 # Create an instance of Mat representing the check matrix H.
-"""In such a code, there is a matrix H, called the check matrix, such that C is the null space of H. When the Receiver receives the vector c ̃, she can check whether the received vector is a codeword by multiplying it by H and checking whether the resulting vector (called the error syndrome) is the zero vector."""
 h = [
     [0, 0, 0, one, one, one, one],
     [0, one, one, 0, 0, one, one],
     [one, 0, one, 0, one, 0, one]]
-g = [
-    [one, 0, 0],
-    [0, one, 0],
-    [0, 0, one],
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-]
-hg = listlist2mat(h)
+
+g = listlist2mat(h)
+
+H = G
 # -> þetta virkar ekki alveg, en finnst þetta bara vera fín byrjun marh. 
 #hg = 0
-H = hg
-# >>> Comlete
+
 
 ## Task 5
 def find_error(syndrome):
+    h = [
+    [0, 0, 0, one, one, one, one],
+    [0, one, one, 0, 0, one, one],
+    [one, 0, one, 0, one, 0, one]
+    ]
     """
     Input: an error syndrome as an instance of Vec
     Output: the corresponding error vector e
@@ -97,12 +94,19 @@ def find_error(syndrome):
         >>> find_error(Vec({0,1,2}, {})) == Vec({0,1,2,3,4,5,6}, {})
         True
     """
-    error_vector = Vec(syndrome.D, {})
-    for i in syndrome.D:
-        if syndrome[i] == 1:
-            error_vector[i] = 1 
-    return error_vector
-print(find_error(Vec({0,1,2}, {0:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{3: one}))
+    pass
+    return syndrome
+find_error(Vec({0,1,2}, {0:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{3: one})
+find_error(Vec({0,1,2}, {2:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{0: one})
+
+"""find_error(Vec({0,1,2}, {0:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{3: one})
+
+find_error(Vec({0,1,2}, {2:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{0: one})
+
+find_error(Vec({0,1,2}, {1:one, 2:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{2: one})
+
+find_error(Vec({0,1,2}, {})) == Vec({0,1,2,3,4,5,6}, {})"""
+
 # >>> Complete
 
 ## Task 6

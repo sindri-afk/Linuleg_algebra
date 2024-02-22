@@ -76,7 +76,8 @@ g = [
     [0, 0, 0],
     [0, 0, 0],
 ]
-hg = listlist2mat(h, g)
+hg = listlist2mat(h)
+# -> þetta virkar ekki alveg, en finnst þetta bara vera fín byrjun marh. 
 #hg = 0
 H = hg
 # >>> Comlete
@@ -99,16 +100,18 @@ def find_error(syndrome):
     error_vector = Vec(syndrome.D, {})
     for i in syndrome.D:
         if syndrome[i] == 1:
-            error_vector[i] = 1
+            error_vector[i] = 1 
     return error_vector
+print(find_error(Vec({0,1,2}, {0:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{3: one}))
 # >>> Complete
 
 ## Task 6
 # Use the Vec class for your answers.
-non_codeword = ...
-error_vector = ...
-code_word = ...
-original = ...
+
+non_codeword = Vec({0, 1, 2}, {0: 1, 1: 1})
+error_vector = Vec({0, 1, 2}, {1: 1})
+code_word = Vec({0, 1, 2}, {0: 1, 1: 0})  
+original = Vec({0, 1, 2}, {0: 1})
 
 
 ## Task 7

@@ -3,9 +3,9 @@
 
 from vec import Vec
 from mat import Mat
-from bitutil import bits2mat, str2bits, noise
+from bitutil import *
 from GF2 import one
-from matutil import listlist2mat 
+from matutil import *
 
 
 ## Task 1
@@ -53,7 +53,7 @@ r = [
     [0, 0, 0, 0, 0, 0, one],
     [0, 0, 0, 0, 0, one, 0],
     [0, 0, 0, 0, one, 0, 0],
-    [0, 0, 0, one, 0 ,0, 0],
+    [0, 0, one, 0, 0 ,0, 0],
 ]
 r_mat = listlist2mat(r)
 R = r_mat
@@ -69,18 +69,13 @@ h = [
 
 g = listlist2mat(h)
 
-H = G
+H = g
 # -> þetta virkar ekki alveg, en finnst þetta bara vera fín byrjun marh. 
 #hg = 0
 # Complete
-
+print(H)
 ## Task 5
 def find_error(syndrome):
-    h = [
-    [0, 0, 0, one, one, one, one],
-    [0, one, one, 0, 0, one, one],
-    [one, 0, one, 0, one, 0, one]
-    ]
     """
     Input: an error syndrome as an instance of Vec
     Output: the corresponding error vector e
@@ -94,10 +89,24 @@ def find_error(syndrome):
         >>> find_error(Vec({0,1,2}, {})) == Vec({0,1,2,3,4,5,6}, {})
         True
     """
-    pass
-    return syndrome
+    """result = {}
+    for lis in h: 
+        for item in lis:
+            for val in syndrome.f:
+                new_var = item * val
+                result += {new_var}"""
+    
+    new_mat = mat2coldict(H)
+    counter = 0 
+    for col in new_mat:
+        counter += 1 
+        if new_mat[col] == syndrome:
+            ret_syndrome = Vec({0, 1, 2, 3, 4, 5, 6}, {counter -1: one})
+    return ret_syndrome
+            
+
 find_error(Vec({0,1,2}, {0:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{3: one})
-find_error(Vec({0,1,2}, {2:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{0: one})
+# find_error(Vec({0,1,2}, {2:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{0: one})
 
 """find_error(Vec({0,1,2}, {0:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{3: one})
 
@@ -112,10 +121,12 @@ find_error(Vec({0,1,2}, {})) == Vec({0,1,2,3,4,5,6}, {})"""
 ## Task 6
 # Use the Vec class for your answers.
 
-non_codeword = Vec({0, 1, 2}, {0: 1, 1: 1})
-error_vector = Vec({0, 1, 2}, {1: 1})
-code_word = Vec({0, 1, 2}, {0: 1, 1: 0})  
-original = Vec({0, 1, 2}, {0: 1})
+"""
+non_codeword =  
+error_vector = 
+code_word = 
+original = 
+"""
 # Complete
 
 ## Task 7
@@ -129,6 +140,7 @@ def find_error_matrix(S):
         True
     """
     pass
+
 
 ## Task 10
 s = "I'm trying to free your mind, Neo. But I can only show you the door. You're the one that has to walk through it."

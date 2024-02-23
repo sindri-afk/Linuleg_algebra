@@ -165,10 +165,8 @@ P = sp
 ## Task 12
 P = bits2mat(P, 7)
 C = matrix_matrix_mul(g, P)
-print(C)
-bits_before = None
-bits_after = None
-
+bits_before = len(P.D[0]) * len(P.D[1])
+bits_after = len(C.D[0]) * len(C.D[1])
 
 ## Task 13 - ungraded
 CTILDE = None
@@ -184,6 +182,7 @@ def correct(A):
         True
     """
     pass
+    
 
 
 ## Task 15

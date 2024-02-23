@@ -2,7 +2,7 @@
 # Please fill out this stencil and submit using the provided submission script.
 
 from vec import Vec
-from mat import Mat
+from mat import Mat, add
 from bitutil import *
 from GF2 import one
 from matutil import *
@@ -95,14 +95,13 @@ def find_error(syndrome):
             for val in syndrome.f:
                 new_var = item * val
                 result += {new_var}"""
-    
     new_mat = mat2coldict(H)
     counter = 0 
     for col in new_mat:
         counter += 1 
         if new_mat[col] == syndrome:
-            ret_syndrome = Vec({0, 1, 2, 3, 4, 5, 6}, {counter -1: one})
-    return ret_syndrome
+            new_and_cool_syndrome = Vec({0, 1, 2, 3, 4, 5, 6}, {counter -1: one})
+    return new_and_cool_syndrome
             
 
 find_error(Vec({0,1,2}, {0:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{3: one})
@@ -121,12 +120,18 @@ find_error(Vec({0,1,2}, {})) == Vec({0,1,2,3,4,5,6}, {})"""
 ## Task 6
 # Use the Vec class for your answers.
 
-"""
-non_codeword =  
-error_vector = 
-code_word = 
-original = 
-"""
+
+non_codeword = Vec({0, 1, 2, 3, 4, 5, 6}, {0:one, 2:one, 3:one, 5:one, 6:one})
+# e = find_error(Vec({0,1,2}, {0:one, 1:one, 2:one}))
+# error_vector = e
+error_vector = Vec({0, 1, 2, 3, 4, 5, 6}, {6:one})
+# code_word = e + non_codeword
+code_word = Vec({0, 1, 2, 3, 4, 5, 6}, {0:one, 2:one, 3:one, 5:one})
+print(code_word)
+# original = R * code_word
+original = Vec({0, 1, 2, 3}, {1:one, 3:one})
+print(original)
+
 # Complete
 
 ## Task 7

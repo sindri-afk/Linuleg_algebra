@@ -72,7 +72,7 @@ g = listlist2mat(h)
 H = G
 # -> þetta virkar ekki alveg, en finnst þetta bara vera fín byrjun marh. 
 #hg = 0
-
+# Complete
 
 ## Task 5
 def find_error(syndrome):
@@ -116,7 +116,7 @@ non_codeword = Vec({0, 1, 2}, {0: 1, 1: 1})
 error_vector = Vec({0, 1, 2}, {1: 1})
 code_word = Vec({0, 1, 2}, {0: 1, 1: 0})  
 original = Vec({0, 1, 2}, {0: 1})
-
+# Complete
 
 ## Task 7
 def find_error_matrix(S):

@@ -100,11 +100,11 @@ def find_error(syndrome):
     for col in new_mat:
         counter += 1 
         if new_mat[col] == syndrome:
-            new_and_cool_syndrome = Vec({0, 1, 2, 3, 4, 5, 6}, {counter -1: one})
-    return new_and_cool_syndrome
+            ret_syndrome = Vec({0, 1, 2, 3, 4, 5, 6}, {counter -1: one})
+    return ret_syndrome
             
 
-find_error(Vec({0,1,2}, {0:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{3: one})
+#find_error(Vec({0,1,2}, {0:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{3: one})
 # find_error(Vec({0,1,2}, {2:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{0: one})
 
 """find_error(Vec({0,1,2}, {0:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{3: one})
@@ -136,6 +136,9 @@ print(original)
 
 ## Task 7
 def find_error_matrix(S):
+    # error vigrarnir eru 7 á lengd niður. 
+
+    
     """
     Input: a matrix S whose columns are error syndromes
     Output: a matrix whose cth column is the error corresponding to the cth column of S.
@@ -144,7 +147,15 @@ def find_error_matrix(S):
         >>> find_error_matrix(S) == Mat(({0, 1, 2, 3, 4, 5, 6}, {0, 1, 2, 3}), {(1, 3): 0, (3, 0): 0, (2, 1): 0, (6, 2): 0, (5, 1): one, (0, 3): 0, (4, 0): 0, (1, 2): 0, (3, 3): 0, (6, 3): 0, (5, 0): 0, (2, 2): 0, (4, 1): 0, (1, 1): 0, (3, 2): one, (0, 0): 0, (6, 0): 0, (2, 3): 0, (4, 2): 0, (1, 0): 0, (5, 3): 0, (0, 1): 0, (6, 1): 0, (3, 1): 0, (2, 0): 0, (4, 3): one, (5, 2): 0, (0, 2): 0})
         True
     """
-    pass
+    """Write a one-line procedure find_error_matrix with the following spec:
+            • input: a matrix S whose columns are error syndromes
+            • output: a matrix whose cth column is the error corresponding to the cth column of S.
+        This procedure consists of a comprehension that uses the procedure find_error together with some procedures from the matutil module.
+        Test your procedure on a matrix whose columns are [1, 1, 1] and [0, 0, 1]."""
+    return coldict2mat({col: find_error(mat2coldict(S)[col]) for col in S.D[1]})
+
+S = listlist2mat([[0,one,one,one],[0,one,0,0],[0,0,0,one]])
+print(find_error_matrix(S) == Mat(({0, 1, 2, 3, 4, 5, 6}, {0, 1, 2, 3}), {(1, 3): 0, (3, 0): 0, (2, 1): 0, (6, 2): 0, (5, 1): one, (0, 3): 0, (4, 0): 0, (1, 2): 0, (3, 3): 0, (6, 3): 0, (5, 0): 0, (2, 2): 0, (4, 1): 0, (1, 1): 0, (3, 2): one, (0, 0): 0, (6, 0): 0, (2, 3): 0, (4, 2): 0, (1, 0): 0, (5, 3): 0, (0, 1): 0, (6, 1): 0, (3, 1): 0, (2, 0): 0, (4, 3): one, (5, 2): 0, (0, 2): 0}))
 
 
 ## Task 10

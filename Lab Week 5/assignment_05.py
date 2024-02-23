@@ -37,7 +37,7 @@ v = Vec({0, 1, 2, 3, 4, 5, 6}, {2: one, 3:one, 6: one })
 
 # print(v)
 
-encoding_1001 = None
+encoding_1001 = v
 # einfeldið. þetta er yfir GF(2)
 
 
@@ -73,7 +73,8 @@ H = g
 # -> þetta virkar ekki alveg, en finnst þetta bara vera fín byrjun marh. 
 #hg = 0
 # Complete
-print(H)
+
+
 ## Task 5
 def find_error(syndrome):
     """
@@ -97,11 +98,12 @@ def find_error(syndrome):
                 result += {new_var}"""
     new_mat = mat2coldict(H)
     counter = 0 
+    new_answer = Vec({0, 1, 2, 3, 4, 5, 6}, {})
     for col in new_mat:
         counter += 1 
         if new_mat[col] == syndrome:
-            ret_syndrome = Vec({0, 1, 2, 3, 4, 5, 6}, {counter -1: one})
-    return ret_syndrome
+            new_answer = Vec({0, 1, 2, 3, 4, 5, 6}, {counter -1: one})
+    return new_answer
             
 
 #find_error(Vec({0,1,2}, {0:one})) == Vec({0, 1, 2, 3, 4, 5, 6},{3: one})
@@ -127,10 +129,9 @@ non_codeword = Vec({0, 1, 2, 3, 4, 5, 6}, {0:one, 2:one, 3:one, 5:one, 6:one})
 error_vector = Vec({0, 1, 2, 3, 4, 5, 6}, {6:one})
 # code_word = e + non_codeword
 code_word = Vec({0, 1, 2, 3, 4, 5, 6}, {0:one, 2:one, 3:one, 5:one})
-print(code_word)
 # original = R * code_word
 original = Vec({0, 1, 2, 3}, {1:one, 3:one})
-print(original)
+
 
 # Complete
 
@@ -163,8 +164,8 @@ sp = str2bits(s)
 P = sp
 
 ## Task 12
-P = bits2mat(P, 7)
-C = matrix_matrix_mul(g, P)
+P = bits2mat(P)
+C = matrix_matrix_mul(G, P)
 bits_before = len(P.D[0]) * len(P.D[1])
 bits_after = len(C.D[0]) * len(C.D[1])
 
@@ -181,8 +182,7 @@ def correct(A):
         >>> correct(A) == Mat(({0, 1, 2, 3, 4, 5, 6}, {1, 2, 3}), {(0, 1): 0, (1, 2): 0, (3, 2): 0, (1, 3): 0, (3, 3): 0, (5, 2): one, (6, 1): 0, (3, 1): 0, (2, 1): 0, (0, 2): one, (6, 3): one, (4, 2): 0, (6, 2): one, (2, 3): 0, (4, 3): 0, (2, 2): 0, (5, 1): 0, (0, 3): one, (4, 1): 0, (1, 1): 0, (5, 3): one})
         True
     """
-    pass
-    
+    return A + find_error_matrix(H*A)
 
 
 ## Task 15
@@ -195,4 +195,6 @@ def decode_with_error(A):
         >>> decode_with_error(A)
         'Neo'
     """
-    pass
+    corrected = correct(A)
+    decoded = matrix_matrix_mul(R, corrected)
+    return bits2str(mat2bits(decoded))

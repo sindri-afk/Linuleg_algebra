@@ -1,7 +1,7 @@
 from mat import Mat
 from vec import Vec
 from matutil import *
-import GF2
+import GF2 as GF2
 
 def _triangular_solve(rowlist, row_label_list, col_label_list, b):
     x = Vec(set(col_label_list), { })

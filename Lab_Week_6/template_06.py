@@ -1,7 +1,7 @@
 # version code 80e56511a793+
 # Please fill out this stencil and submit using the provided submission script.
 
-from vec import Vec
+from vec import *
 from mat import Mat
 from matutil import rowdict2mat
 from solver import solve
@@ -18,14 +18,23 @@ def move2board(y):
           in whiteboard coordinates of the point p such that the line through the 
           origin and q intersects the whiteboard plane at p.
     '''
-    return Vec({'y1','y2','y3'}, {})
+    return Vec({'y1','y2','y3'}, {'y1':y['y1']/y['y3'], 'y2':y['y2']/y['y3'],'y3':y['y3']/y['y3']})
 
 
 
 ## 2: () Make domain of vector
 # D should be assigned the Cartesian product of R and C
-D = ...
-
+# D = [(r, c) for r in R for c in C°]
+R = {'y1', 'y2', 'y3'}
+C ={'x1','x2','x3'}
+D = set()
+for r in R:
+    for c in C:
+        tuple = (r,c)
+        D.add(tuple)
+# eitthvað mengi a = 1, 2, 3   b = a, b, c
+# a x b = 
+# 1a, 1b, 1c, 2a, 2b, 2c, 3a, 3b, 3c
 
 
 ## 3: (Task 5.12.2) Make Equations

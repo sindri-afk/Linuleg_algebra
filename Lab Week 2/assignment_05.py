@@ -1,11 +1,11 @@
 # version code 80e56511a793+
 # Please fill out this stencil and submit using the provided submission script.
 
-from vec import Vec
+from Lab_Week_6.vec import Vec
 from mat import *
-from bitutil import *
-from GF2 import one
-from matutil import *
+from Lab_Week_6.bitutil import *
+from Lab_Week_6.GF2 import one
+from Lab_Week_6.matutil import *
 
 
 ## Task 1

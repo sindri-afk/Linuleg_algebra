@@ -1,4 +1,4 @@
-from vec import Vec
+from Lab_Week_6.vec import Vec
 
 
 def vec_select(veclist, k):

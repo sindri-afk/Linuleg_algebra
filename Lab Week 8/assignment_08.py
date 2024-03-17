@@ -52,8 +52,8 @@ def make_Vec(primeset, factors):
     return result
     
 ## Task 3
+
 def find_candidates(N, primeset):
-    
     '''
     Input:
         - N: an int to factor
@@ -88,7 +88,17 @@ def find_candidates(N, primeset):
                 Vec(D,{2: one, 3: one, 13: one})])
         True
     '''
-
+    roots = []
+    rowlist = []
+    x = intsqrt(N) + 2 
+    while len(primeset) + 1 > len(roots):
+        if dumb_factor((x*x) - N) != []:
+            roots.append(x)
+            rowlist.append(make_Vec(primeset, dumb_factor((x*x) - N)))
+        x += 1
+    return rowlist, roots
+    
+   
 
 ## Task 4
 def find_a_and_b(v, roots, N):
@@ -103,6 +113,12 @@ def find_a_and_b(v, roots, N):
       (if v is correctly chosen)
     Example:
         >>> roots = [51, 52, 53, 58, 61, 62, 63, 67, 68, 71, 77, 79]
+        len(roots) == len(domainið)
+        a_list = [52, 53, 79, 62]
+        a = prod(a-list) = 52 * 53 * 79 * 62
+        c = prod((x*x)- N) for x in a-list = (52^2 -N) * (53^2 - N)......
+        b = intsqrt(c)
+
         >>> N = 2419
         >>> v = Vec({0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},{1: one, 2: one, 11: one, 5: one})  
         >>> find_a_and_b(v, roots, N)
@@ -111,7 +127,11 @@ def find_a_and_b(v, roots, N):
         >>> find_a_and_b(v, roots, N)
         (4081, 1170)
     '''
-    pass
+    a_list = [roots[i] for i in v.D if v[i] == one]
+    a = prod(a-list)
+    c = prod(((x*x)- N) for x in a-list)
+    b = intsqrt(c)
+    return a, b
 
 ## Task 5
 
